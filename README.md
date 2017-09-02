@@ -9,6 +9,9 @@
 * HTTP calls are made to the OMDB API by using the *Request* NPM Library.
 * Each user interaction is time-stamped and committed to a Log file via the Node FS Module.
 
+### Video Demo
+This application runs in the Node Command Line Interface and is, therefore, not deployed for viewing.   A demo of the CLI operation of the app can be viewed by clicking [here](https://youtu.be/Pnt1aZmquOQ)
+
 
 #### When the application launches, four options are presented:
   1. Read Brian Hummel's Tweets
