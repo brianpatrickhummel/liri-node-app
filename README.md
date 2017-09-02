@@ -2,7 +2,15 @@
 
 ### This *Language Interpretation and Recognition Interface* is a Node.js CLI application that allows a user to query the Twitter, Spotify and OMDB API's.
 
-When the application launches, users are present with four options:
+* The application runs in the Node.js command line interface.
+* The application interacts with the user through the *Inquirer.js* NPM Library.
+* Asynchronous calls are made to the Twitter API using the *twitter* NPM Library.
+* Asynchronous calls are made to the Spotify API using the *node-spotify-api* NPM Library.
+* HTTP calls are made to the OMDB API by using the *Request* NPM Library.
+* Each user interaction is time-stamped and committed to a Log file via the Node FS Module.
+
+
+#### When the application launches, four options are presented:
   1. Read Brian Hummel's Tweets
     * queries Twitter API
     * returns the last 20 tweets from MY personal account
@@ -18,10 +26,4 @@ When the application launches, users are present with four options:
     * references a locally stored file on server via FS module
     * file instructs app to query the Spotify API with a Backstreet Boys song title
 
-* The application runs in the Node.js command line interface.
-* The application interacts with the user through the *Inquirer.js* NPM Library.
-* Asynchronous calls are made to the Twitter API using the *twitter* NPM Library.
-* Asynchronous calls are made to the Spotify API using the *node-spotify-api* NPM Library.
-* HTTP calls are made to the OMDB API by using the *Request* NPM Library.
-* Each user interaction is time-stamped and committed to a Log file via the Node FS Module.
 
