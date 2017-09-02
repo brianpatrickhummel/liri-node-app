@@ -19,7 +19,9 @@ When the application launches, users are present with four options:
     * file instructs app to query the Spotify API with a Backstreet Boys song title
 
 * The application runs in the Node.js command line interface.
-* The application interacts with the user through the Inquirer.js Library.
-* HTTP calls are made to the third-party API's from the CLI using the Request Library.
+* The application interacts with the user through the *Inquirer.js* NPM Library.
+* Asynchronous calls are made to the Twitter API using the *twitter* NPM Library.
+* Asynchronous calls are made to the Spotify API using the *node-spotify-api* NPM Library.
+* HTTP calls are made to the OMDB API by using the *Request* NPM Library.
 * Each user interaction is time-stamped and committed to a Log file via the Node FS Module.
 
