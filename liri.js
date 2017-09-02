@@ -18,8 +18,7 @@ var spotify = new Spotify({
 //-------- Prompt user for input-------------------------------------------------
 
 inquirer
-  .prompt([
-    {
+  .prompt([{
       type: "list",
       message: "Please select",
       choices: [
@@ -34,20 +33,22 @@ inquirer
       type: "input",
       message: "Please enter the name of a song: ",
       name: "song",
-      when: function(answers) {
-        return answers.whichAction === "Get Information about a song from Spotify";
+      when: function (answers) {
+        return (
+          answers.whichAction === "Get Information about a song from Spotify"
+        );
       }
     },
     {
       type: "input",
       message: "Enter the name of a film: ",
       name: "film",
-      when: function(answers) {
+      when: function (answers) {
         return answers.whichAction === "Get information about a film from OMDB";
       }
     }
   ])
-  .then(function(user) {
+  .then(function (user) {
     var action = user.whichAction;
     var currentdate = new Date(); // used to set date information when writing to log.txt
 
@@ -56,8 +57,7 @@ inquirer
     var lookup = {
       //--------------Logging to log.txt---------------------
 
-      logTime:
-        "Log entry created on " +
+      logTime: "Log entry created on " +
         currentdate.getDate() +
         "/" +
         (currentdate.getMonth() + 1) +
@@ -70,30 +70,31 @@ inquirer
         ":" +
         currentdate.getSeconds(),
 
-      log: function(thingToLog) {
-        fs.appendFile("log.txt", thingToLog, function(error) {
+      log: function (thingToLog) {
+        fs.appendFile("log.txt", thingToLog, function (error) {
           if (error) console.log("error");
         });
       },
 
       //----------------- TWITTER ----------------------------
 
-      "Read Brian Hummel's Tweets": function() {
-        var params = { screen_name: "BrianPHummel", count: "20" };
-        client.get("statuses/user_timeline", params, function(error, tweets) {
+      "Read Brian Hummel's Tweets": function () {
+        var params = {
+          screen_name: "BrianPHummel",
+          count: "20"
+        };
+        client.get("statuses/user_timeline", params, function (error, tweets) {
           if (!error) {
             for (var i = 0; i < tweets.length; i++) {
-              console.log("\n" + tweets[i].created_at);
-              console.log(tweets[i].text + "\n");
               lookup.log(
                 "\n" +
-                  lookup.logTime +
-                  "\n" +
-                  "Posted on " +
-                  tweets[i].created_at +
-                  "\n" +
-                  tweets[i].text +
-                  "\n"
+                lookup.logTime +
+                "\n" +
+                "Posted on " +
+                tweets[i].created_at +
+                "\n" +
+                tweets[i].text +
+                "\n"
               );
             }
           }
@@ -102,11 +103,15 @@ inquirer
 
       //----------------- SPOTIFY ----------------------------
 
-      "Get Information about a song from Spotify": function() {
+      "Get Information about a song from Spotify": function () {
         if (!user.song) {
           user.song = "THE SIGN ace of base";
         }
-        spotify.search({ type: "track", query: user.song, limit: 1 }, function(
+        spotify.search({
+          type: "track",
+          query: user.song,
+          limit: 1
+        }, function (
           err,
           data
         ) {
@@ -114,7 +119,7 @@ inquirer
             console.log("Error occurred" + err);
             return;
           }
-          console.log(JSON.stringify(data, null, 2));    //test prints the full Spotify return JSON object
+          // console.log(JSON.stringify(data, null, 2));    //test prints the full Spotify return JSON object
           for (var i = 0; i < data.tracks.items.length; i++) {
             var songWrite =
               "\nThe song " +
@@ -126,7 +131,6 @@ inquirer
               "\nTo preview on Spotify, command+click the link below: \n\n" +
               data.tracks.items[0].preview_url +
               "\n";
-            console.log(songWrite);
             lookup.log("\n \n" + lookup.logTime + songWrite);
           }
         });
@@ -134,7 +138,7 @@ inquirer
 
       //----------------- OMDB ----------------------------
 
-      "Get information about a film from OMDB": function() {
+      "Get information about a film from OMDB": function () {
         if (!user.film) {
           user.film = "Mr. Nobody";
         }
@@ -142,7 +146,7 @@ inquirer
           "http://www.omdbapi.com/?t=" +
           user.film +
           "&y=&plot=short&apikey=40e9cece";
-        request(queryURL, function(error, response, body) {
+        request(queryURL, function (error, response, body) {
           if (!error && response.statusCode === 200) {
             var filmWrite =
               "\nThe movie title is " +
@@ -162,17 +166,15 @@ inquirer
               "\nOfficial Website is " +
               JSON.parse(body).Website +
               "\n";
-            console.log(filmWrite);
             lookup.log("\n \n" + lookup.logTime + filmWrite);
-            // console.log(response);   logs full JSON response
           }
         });
       },
 
       //----------------- RANDOM ----------------------------
 
-      "Trigger the Unknown": function() {
-        fs.readFile("random.txt", "UTF8", function(error, data) {
+      "Trigger the Unknown": function () {
+        fs.readFile("random.txt", "UTF8", function (error, data) {
           data = data.split(",");
           action = data[0];
           user.song = data[1];
