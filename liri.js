@@ -86,14 +86,7 @@ inquirer
               console.log("\n" + tweets[i].created_at);
               console.log(tweets[i].text + "\n");
               lookup.log(
-                "\n" +
-                  lookup.logTime +
-                  "\n" +
-                  "Posted on " +
-                  tweets[i].created_at +
-                  "\n" +
-                  tweets[i].text +
-                  "\n"
+                "\n" + lookup.logTime + "\n" + "Posted on " + tweets[i].created_at + "\n" + tweets[i].text + "\n"
               );
             }
           }
@@ -106,15 +99,13 @@ inquirer
         if (!user.song) {
           user.song = "THE SIGN ace of base";
         }
-        spotify.search({ type: "track", query: user.song, limit: 1 }, function(
-          err,
-          data
-        ) {
+        spotify.search({ type: "track", query: user.song, limit: 1 }, function(err, data) {
           if (err) {
             console.log("Error occurred" + err);
             return;
           }
-          // console.log(JSON.stringify(data, null, 2));    //test prints the full Spotify return JSON object
+          //test prints the full Spotify return JSON object
+          // console.log(JSON.stringify(data, null, 2));
           for (var i = 0; i < data.tracks.items.length; i++) {
             var songWrite =
               "\nThe song " +
@@ -138,10 +129,7 @@ inquirer
         if (!user.film) {
           user.film = "Mr. Nobody";
         }
-        var queryURL =
-          "http://www.omdbapi.com/?t=" +
-          user.film +
-          "&y=&plot=short&apikey=40e9cece";
+        var queryURL = "http://www.omdbapi.com/?t=" + user.film + "&y=&plot=short&apikey=40e9cece";
         request(queryURL, function(error, response, body) {
           if (!error && response.statusCode === 200) {
             var filmWrite =
